@@ -519,7 +519,11 @@ async def cmd_books(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def cmd_help(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
         "🔥 *Deryl's Personal OS — Commands*\n\n"
-        "*/start* — restart and see welcome\n"
+        "🌐 *Your Live Sites:*
+[Future Vision](https://personalbotinfo.netlify.app/deryl_vannostrand_future_vision.html)
+[Knowledge Library](https://personalbotinfo.netlify.app/deryl_vannostrand_library.html)
+
+*/start* — restart and see welcome\n"
         "*/goals* — view active goals\n"
         "*/goals [text]* — add a new goal\n"
         "*/done [number]* — mark goal complete\n"
