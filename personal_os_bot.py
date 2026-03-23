@@ -38,7 +38,7 @@ import anthropic
 
 BOT_TOKEN   = "YOUR_TELEGRAM_BOT_TOKEN"      # from @BotFather
 CHAT_ID     = "YOUR_TELEGRAM_CHAT_ID"        # from @userinfobot  
-ANTHROPIC_KEY = "YOUR_ANTHROPIC_API_KEY"     # from console.anthropic.com
+ANTHROPIC_KEY = os.environ.get("ANTHROPIC_KEY", "")     # from console.anthropic.com
 
 # ═══════════════════════════════════════════════════════
 # DERYL'S IDENTITY & CONTEXT
