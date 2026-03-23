@@ -36,8 +36,8 @@ import anthropic
 # CONFIGURATION — fill these in
 # ═══════════════════════════════════════════════════════
 
-BOT_TOKEN   = "YOUR_TELEGRAM_BOT_TOKEN"      # from @BotFather
-CHAT_ID     = "YOUR_TELEGRAM_CHAT_ID"        # from @userinfobot  
+BOT_TOKEN     = os.environ.get("BOT_TOKEN", "")
+CHAT_ID       = os.environ.get("CHAT_ID", "")
 ANTHROPIC_KEY = os.environ.get("ANTHROPIC_KEY", "")     # from console.anthropic.com
 
 # ═══════════════════════════════════════════════════════
