@@ -1,0 +1,1687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deryl VanNostrand — Future Vision</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:       #0a0906;
+  --bg2:      #111009;
+  --surface:  #161410;
+  --card:     #1c1a15;
+  --border:   #2a2720;
+  --border2:  #332f26;
+  --fire:     #e84c00;
+  --ember:    #ff7b35;
+  --gold:     #c9973a;
+  --gold-lt:  #e8c070;
+  --slate:    #4a7a9b;
+  --slate-lt: #7ab0cc;
+  --cream:    #f0ead8;
+  --cream2:   #c8bfa8;
+  --muted:    #6b6355;
+  --muted2:   #8a7f6e;
+  --white:    #f5f0e6;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: 'Barlow', sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+/* ── NOISE TEXTURE OVERLAY ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.4;
+}
+
+/* ── STICKY NAV ── */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 500;
+  background: rgba(10,9,6,0.95);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  height: 56px;
+  display: flex;
+  align-items: center;
+  padding: 0 32px;
+  gap: 0;
+}
+
+.nav-brand {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--fire);
+  margin-right: 40px;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.nav-links {
+  display: flex;
+  gap: 0;
+  flex: 1;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.nav-links::-webkit-scrollbar { display: none; }
+
+.nav-link {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted2);
+  text-decoration: none;
+  padding: 0 18px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+.nav-link:hover { color: var(--cream); }
+.nav-link.active { color: var(--fire); border-bottom-color: var(--fire); }
+
+.nav-meta {
+  margin-left: auto;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  text-transform: uppercase;
+  white-space: nowrap;
+  padding-left: 24px;
+}
+
+/* ── HERO ── */
+.hero {
+  position: relative;
+  min-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse 80% 60% at 70% 40%, rgba(232,76,0,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 80% at 20% 80%, rgba(74,122,155,0.08) 0%, transparent 50%),
+    linear-gradient(180deg, #0d0c08 0%, #0a0906 60%, #080706 100%);
+}
+
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(42,39,32,0.3) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(42,39,32,0.3) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.6) 40%, rgba(0,0,0,0.2) 80%, transparent 100%);
+}
+
+.hero-content {
+  position: relative;
+  padding: 80px 64px 72px;
+  max-width: 1100px;
+}
+
+.hero-eyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--fire);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.hero-eyebrow::before {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 2px;
+  background: var(--fire);
+}
+
+.hero-name {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(52px, 7vw, 96px);
+  font-weight: 900;
+  line-height: 0.95;
+  color: var(--cream);
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+.hero-name .fire-word { color: var(--fire); }
+
+.hero-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(18px, 2.5vw, 28px);
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 36px;
+}
+
+.hero-why {
+  max-width: 680px;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(17px, 2vw, 22px);
+  font-weight: 700;
+  color: var(--cream2);
+  line-height: 1.55;
+  padding-left: 24px;
+  border-left: 3px solid var(--fire);
+  margin-bottom: 48px;
+}
+
+.hero-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.hero-tag {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border: 1px solid var(--border2);
+  color: var(--muted2);
+  border-radius: 2px;
+  background: rgba(255,255,255,0.02);
+}
+.hero-tag.fire { border-color: var(--fire); color: var(--fire); background: rgba(232,76,0,0.06); }
+.hero-tag.gold { border-color: var(--gold); color: var(--gold); background: rgba(201,151,58,0.06); }
+.hero-tag.slate { border-color: var(--slate); color: var(--slate-lt); background: rgba(74,122,155,0.06); }
+
+.hero-scroll {
+  position: absolute;
+  bottom: 32px;
+  right: 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.hero-scroll::after {
+  content: '';
+  display: block;
+  width: 1px;
+  height: 48px;
+  background: linear-gradient(180deg, var(--muted) 0%, transparent 100%);
+}
+
+/* ── SECTION WRAPPER ── */
+.section {
+  padding: 96px 64px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-full {
+  padding: 0;
+  max-width: none;
+}
+
+/* ── SECTION HEADERS ── */
+.section-eyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--fire);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.section-eyebrow .num {
+  font-size: 9px;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.section-heading {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 700;
+  color: var(--cream);
+  line-height: 1.1;
+  margin-bottom: 16px;
+  letter-spacing: -0.01em;
+}
+
+.section-subhead {
+  font-size: 16px;
+  color: var(--muted2);
+  line-height: 1.65;
+  max-width: 560px;
+  margin-bottom: 52px;
+  font-weight: 300;
+}
+
+/* ── DIVIDER ── */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, var(--fire) 0%, var(--gold) 20%, var(--border) 60%, transparent 100%);
+  margin: 0 64px;
+}
+
+/* ── IDENTITY SECTION ── */
+.identity-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  margin-bottom: 2px;
+}
+
+.identity-card {
+  background: var(--card);
+  padding: 40px;
+  position: relative;
+  overflow: hidden;
+}
+.identity-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+.identity-card.blaze::before { background: linear-gradient(90deg, var(--fire), var(--ember)); }
+.identity-card.genekey::before { background: linear-gradient(90deg, var(--slate), var(--slate-lt)); }
+
+.identity-card-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--fire);
+  margin-bottom: 6px;
+}
+.identity-card.genekey .identity-card-label { color: var(--slate-lt); }
+
+.identity-card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--cream);
+  margin-bottom: 4px;
+}
+
+.identity-card-sub {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted2);
+  margin-bottom: 24px;
+}
+
+.identity-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.identity-table tr { border-bottom: 1px solid var(--border); }
+.identity-table tr:last-child { border-bottom: none; }
+.identity-table td {
+  padding: 10px 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--cream2);
+  vertical-align: top;
+}
+.identity-table td:first-child {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted2);
+  padding-right: 20px;
+  width: 38%;
+  padding-top: 12px;
+}
+.identity-table .win { color: var(--fire); }
+.identity-table .lose { color: var(--muted2); }
+
+/* convergence bar */
+.convergence {
+  background: var(--surface);
+  border-left: 4px solid var(--fire);
+  padding: 32px 40px;
+  margin-bottom: 2px;
+}
+.convergence-text {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 18px;
+  color: var(--cream);
+  line-height: 1.6;
+  max-width: 820px;
+}
+.convergence-text strong { color: var(--fire); font-style: normal; }
+
+/* WHY block */
+.why-block {
+  background: var(--card);
+  padding: 52px 64px;
+  position: relative;
+  overflow: hidden;
+}
+.why-block::after {
+  content: '"';
+  position: absolute;
+  right: 40px;
+  top: -20px;
+  font-family: 'Playfair Display', serif;
+  font-size: 200px;
+  color: rgba(232,76,0,0.06);
+  line-height: 1;
+  pointer-events: none;
+}
+.why-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--fire);
+  margin-bottom: 20px;
+}
+.why-statement {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(22px, 3vw, 32px);
+  font-weight: 700;
+  color: var(--cream);
+  line-height: 1.45;
+  max-width: 800px;
+  margin-bottom: 32px;
+}
+.how-what-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+}
+.hw-col h4 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted2);
+  margin-bottom: 16px;
+}
+.hw-item {
+  font-size: 13px;
+  color: var(--cream2);
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  line-height: 1.5;
+}
+.hw-item::before {
+  content: '→';
+  color: var(--fire);
+  font-size: 11px;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+.hw-item:last-child { border-bottom: none; }
+
+/* ── VISION / DOMAIN CARDS ── */
+.domain-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-bottom: 2px;
+}
+
+.domain-card {
+  background: var(--card);
+  padding: 32px;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.2s ease;
+}
+.domain-card:hover { background: #201e18; }
+
+.domain-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+.domain-icon {
+  font-size: 28px;
+  line-height: 1;
+}
+.domain-accent {
+  width: 36px;
+  height: 3px;
+  border-radius: 2px;
+  margin-top: 6px;
+}
+
+.domain-card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--cream);
+  margin-bottom: 6px;
+  line-height: 1.2;
+}
+.domain-card-sub {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted2);
+  margin-bottom: 20px;
+}
+.domain-items {
+  list-style: none;
+}
+.domain-items li {
+  font-size: 12.5px;
+  color: var(--cream2);
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  line-height: 1.45;
+}
+.domain-items li:last-child { border-bottom: none; }
+.domain-items li::before {
+  content: '–';
+  color: var(--muted);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* target state */
+.target-state {
+  background: linear-gradient(135deg, #161210 0%, #100e0a 100%);
+  border: 1px solid var(--border2);
+  border-left: 4px solid var(--fire);
+  padding: 48px 52px;
+}
+.target-state-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--fire);
+  margin-bottom: 20px;
+}
+.target-state-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 19px;
+  font-weight: 400;
+  color: var(--cream2);
+  line-height: 1.7;
+  max-width: 820px;
+}
+.target-state-text em {
+  color: var(--cream);
+  font-style: normal;
+  font-weight: 700;
+}
+
+/* ── ROADMAP ── */
+.roadmap-container {
+  position: relative;
+}
+
+.roadmap-line {
+  position: absolute;
+  left: 100px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(180deg, var(--fire) 0%, var(--border2) 60%, transparent 100%);
+}
+
+.phase-row {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 0;
+  margin-bottom: 2px;
+  position: relative;
+}
+
+.phase-label-col {
+  padding: 32px 24px 32px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-start;
+  position: relative;
+}
+.phase-label-col::after {
+  content: '';
+  position: absolute;
+  right: -5px;
+  top: 40px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--fire);
+  border: 2px solid var(--bg);
+  z-index: 1;
+}
+
+.phase-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--fire);
+  margin-bottom: 4px;
+  text-align: right;
+}
+.phase-years {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  color: var(--muted);
+  text-align: right;
+  line-height: 1.3;
+}
+
+.phase-content {
+  background: var(--card);
+  padding: 28px 32px;
+  border-left: none;
+  position: relative;
+}
+.phase-content::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+}
+
+.phase-theme {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--cream);
+  margin-bottom: 4px;
+}
+.phase-subtitle {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.phase-bullets {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 24px;
+}
+.phase-bullet {
+  font-size: 12.5px;
+  color: var(--cream2);
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  line-height: 1.45;
+}
+.phase-bullet::before {
+  content: '▸';
+  font-size: 9px;
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+
+/* phase colors */
+.phase-0 .phase-content::before { background: var(--fire); }
+.phase-0 .phase-subtitle { color: var(--fire); }
+.phase-0 .phase-bullet::before { color: var(--fire); }
+
+.phase-1 .phase-content::before { background: var(--ember); }
+.phase-1 .phase-subtitle { color: var(--ember); }
+.phase-1 .phase-bullet::before { color: var(--ember); }
+
+.phase-2 .phase-content::before { background: var(--gold); }
+.phase-2 .phase-subtitle { color: var(--gold); }
+.phase-2 .phase-bullet::before { color: var(--gold); }
+
+.phase-3 .phase-content::before { background: var(--gold-lt); }
+.phase-3 .phase-subtitle { color: var(--gold-lt); }
+.phase-3 .phase-bullet::before { color: var(--gold-lt); }
+
+.phase-4 .phase-content::before { background: var(--slate-lt); }
+.phase-4 .phase-subtitle { color: var(--slate-lt); }
+.phase-4 .phase-bullet::before { color: var(--slate-lt); }
+
+.phase-5 .phase-content::before { background: var(--slate); }
+.phase-5 .phase-subtitle { color: var(--slate-lt); }
+.phase-5 .phase-bullet::before { color: var(--slate-lt); }
+
+/* ── PRINCIPLES ── */
+.principles-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.principle-row {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 0;
+  background: var(--card);
+  overflow: hidden;
+  transition: background 0.2s;
+}
+.principle-row:hover { background: #201e18; }
+
+.principle-num-col {
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+}
+.principle-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--fire);
+  line-height: 1;
+  opacity: 0.7;
+}
+
+.principle-body {
+  padding: 24px 32px;
+  border-left: 1px solid var(--border);
+}
+.principle-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--cream);
+  margin-bottom: 8px;
+}
+.principle-text {
+  font-size: 13px;
+  color: var(--muted2);
+  line-height: 1.65;
+  max-width: 780px;
+}
+
+/* ── ACTION PLAN ── */
+.sprint-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  margin-bottom: 48px;
+}
+
+.sprint-card {
+  background: var(--card);
+  overflow: hidden;
+}
+.sprint-header {
+  padding: 16px 24px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--bg);
+}
+.sprint-header.fire { background: var(--fire); }
+.sprint-header.gold { background: var(--gold); }
+.sprint-header.slate { background: var(--slate); color: var(--cream); }
+.sprint-header.dark { background: var(--surface); color: var(--muted2); border-bottom: 1px solid var(--border); }
+
+.sprint-items {
+  padding: 8px 0;
+}
+.sprint-item {
+  padding: 11px 24px;
+  font-size: 13px;
+  color: var(--cream2);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  line-height: 1.45;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.sprint-item:hover { background: rgba(255,255,255,0.02); }
+.sprint-item:last-child { border-bottom: none; }
+.sprint-item input[type=checkbox] { margin-top: 3px; flex-shrink: 0; accent-color: var(--fire); width: 13px; height: 13px; }
+
+.milestones-section { }
+.milestone-list {
+  background: var(--card);
+  border-left: 3px solid var(--fire);
+}
+.milestone-item {
+  padding: 16px 28px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  font-size: 14px;
+  color: var(--cream2);
+  line-height: 1.5;
+}
+.milestone-item:last-child { border-bottom: none; }
+.milestone-marker {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--fire);
+  margin-top: 2px;
+  flex-shrink: 0;
+  letter-spacing: 0.05em;
+}
+
+/* ── COMMITMENTS ── */
+.commitments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 48px;
+}
+
+.commitment-row {
+  background: var(--card);
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 0;
+  overflow: hidden;
+  transition: background 0.2s;
+}
+.commitment-row:hover { background: #201e18; }
+
+.commitment-bar {
+  background: var(--fire);
+  opacity: 0.15;
+}
+.commitment-row:nth-child(2) .commitment-bar { background: var(--ember); }
+.commitment-row:nth-child(3) .commitment-bar { background: var(--gold); }
+.commitment-row:nth-child(4) .commitment-bar { background: var(--gold-lt); }
+.commitment-row:nth-child(5) .commitment-bar { background: var(--slate-lt); }
+.commitment-row:nth-child(6) .commitment-bar { background: var(--slate); }
+.commitment-row:nth-child(7) .commitment-bar { background: var(--fire); }
+
+.commitment-content {
+  padding: 28px 36px;
+  border-left: 1px solid var(--border);
+}
+.commitment-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--cream);
+  margin-bottom: 8px;
+}
+.commitment-body {
+  font-size: 14px;
+  color: var(--muted2);
+  line-height: 1.65;
+  max-width: 760px;
+}
+
+/* ── CLOSING BANNER ── */
+.closing-banner {
+  background: 
+    radial-gradient(ellipse 100% 100% at 50% 0%, rgba(232,76,0,0.15) 0%, transparent 60%),
+    var(--surface);
+  padding: 96px 64px;
+  text-align: center;
+  border-top: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+.closing-banner::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--fire) 30%, var(--gold) 50%, var(--fire) 70%, transparent);
+}
+.closing-quote {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: clamp(22px, 3vw, 36px);
+  font-weight: 700;
+  color: var(--cream);
+  line-height: 1.4;
+  max-width: 780px;
+  margin: 0 auto 24px;
+}
+.closing-sub {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--fire);
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  padding: 24px 64px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+footer .f-brand {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--fire);
+}
+footer .f-meta {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.hero-content > * {
+  opacity: 0;
+  animation: fadeUp 0.7s ease forwards;
+}
+.hero-eyebrow  { animation-delay: 0.1s; }
+.hero-name     { animation-delay: 0.2s; }
+.hero-title    { animation-delay: 0.3s; }
+.hero-why      { animation-delay: 0.4s; }
+.hero-tags     { animation-delay: 0.5s; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .nav { padding: 0 20px; }
+  .nav-brand { margin-right: 20px; font-size: 11px; }
+  .nav-link { padding: 0 12px; font-size: 10px; }
+  .nav-meta { display: none; }
+  .hero-content { padding: 60px 28px 56px; }
+  .hero-scroll { display: none; }
+  .section { padding: 64px 24px; }
+  .divider { margin: 0 24px; }
+  .identity-grid { grid-template-columns: 1fr; }
+  .why-block { padding: 40px 28px; }
+  .how-what-grid { grid-template-columns: 1fr; gap: 20px; }
+  .domain-grid { grid-template-columns: 1fr 1fr; }
+  .phase-bullets { grid-template-columns: 1fr; }
+  .sprint-grid { grid-template-columns: 1fr; }
+  .roadmap-line { left: 88px; }
+  .phase-row { grid-template-columns: 88px 1fr; }
+  footer { flex-direction: column; gap: 8px; padding: 20px 24px; text-align: center; }
+}
+
+@media (max-width: 600px) {
+  .domain-grid { grid-template-columns: 1fr; }
+  .principle-row { grid-template-columns: 56px 1fr; }
+  .commitment-row { grid-template-columns: 8px 1fr; }
+  .phase-row { grid-template-columns: 72px 1fr; }
+  .roadmap-line { left: 72px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav class="nav" id="mainNav">
+  <div class="nav-brand">Deryl VanNostrand</div>
+  <div class="nav-links">
+    <a href="#identity" class="nav-link" data-section="identity">Identity</a>
+    <a href="#vision" class="nav-link" data-section="vision">Vision</a>
+    <a href="#roadmap" class="nav-link" data-section="roadmap">Roadmap</a>
+    <a href="#principles" class="nav-link" data-section="principles">Principles</a>
+    <a href="#actions" class="nav-link" data-section="actions">Action Plan</a>
+    <a href="#commitments" class="nav-link" data-section="commitments">Commitments</a>
+  </div>
+  <div class="nav-meta">Future Vision · v1.1 · 2026 &nbsp;·&nbsp; <a href="Deryl_VanNostrand_Library.html" style="color:var(--gold);text-decoration:none;font-weight:600;">Library →</a></div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Future Vision Master Plan</div>
+    <h1 class="hero-name">The <span class="fire-word">Connector</span><br>Builds<br>Something Real</h1>
+    <div class="hero-title">Deryl VanNostrand · Lake Ozark, Missouri · 2026–2036+</div>
+    <div class="hero-why">
+      "People are more powerful when connected to something real — land, community, each other, and themselves."
+    </div>
+    <div class="hero-tags">
+      <span class="hero-tag fire">Blaze Genius</span>
+      <span class="hero-tag fire">ENFJ-A · Protagonist</span>
+      <span class="hero-tag fire">Gene Key 13 · Guide</span>
+      <span class="hero-tag gold">Real Estate Investor</span>
+      <span class="hero-tag gold">STR · Lake Ozark</span>
+      <span class="hero-tag gold">Legacy Real Estate</span>
+      <span class="hero-tag slate">Future Mayor</span>
+      <span class="hero-tag slate">Community Builder</span>
+      <span class="hero-tag">Bitcoin Accumulator</span>
+      <span class="hero-tag">Start With Why</span>
+    </div>
+  </div>
+  <div class="hero-scroll">Scroll</div>
+</section>
+
+<!-- ── SECTION 01: IDENTITY ── -->
+<div class="divider"></div>
+<section id="identity">
+<div class="section">
+  <div class="section-eyebrow"><span class="num">01 ·</span> Foundation</div>
+  <h2 class="section-heading">Who You Are</h2>
+  <p class="section-subhead">Four independent frameworks — run at different times, through different lenses — all converge on the same operating system. This is your wiring, not your aspiration.</p>
+
+  <div class="identity-grid">
+    <div class="identity-card blaze">
+      <div class="identity-card-label">GeniusU · Millionaire Master Plan</div>
+      <div class="identity-card-title">Blaze Genius</div>
+      <div class="identity-card-sub">People Smart · Summer Energy · The Magnifier</div>
+      <table class="identity-table">
+        <tr>
+          <td>Natural Question</td>
+          <td><strong>WHO</strong> — you build leverage through relationships, not systems</td>
+        </tr>
+        <tr>
+          <td>Great At</td>
+          <td>Conversation, connection, storytelling, leadership — putting people first</td>
+        </tr>
+        <tr>
+          <td>Winning Formula</td>
+          <td class="win">Creating leverage through magnification — "How can this only be done with me?"</td>
+        </tr>
+        <tr>
+          <td>Losing Formula</td>
+          <td class="lose">Getting stuck in spreadsheets and systems — that's a Steel Genius job</td>
+        </tr>
+        <tr>
+          <td>You Thrive With</td>
+          <td>Variety, new people, new places, new experiences. Lock a Blaze in a back office and the flame dies.</td>
+        </tr>
+        <tr>
+          <td>Opposite Genius</td>
+          <td>Steel — hire Steel early, don't become them</td>
+        </tr>
+      </table>
+    </div>
+    <div class="identity-card genekey">
+      <div class="identity-card-label">Gene Keys · Hologenetic Profile</div>
+      <div class="identity-card-title">The Guide</div>
+      <div class="identity-card-sub">Life's Work: Key 13 · Purpose: Key 2 · Prosperity: Key 3</div>
+      <table class="identity-table">
+        <tr>
+          <td>Life's Work</td>
+          <td><strong>Key 13 — Empathy:</strong> One of the greatest potential guides of others. Power lies in deep listening — seeing every life as myth, finding the hero in the story.</td>
+        </tr>
+        <tr>
+          <td>Evolution</td>
+          <td><strong>Key 7 — Guidance:</strong> Step up as a leader. Balance others' needs vs. wishes. A genetic responsibility to move humanity forward.</td>
+        </tr>
+        <tr>
+          <td>Purpose</td>
+          <td><strong>Key 2 — Orientation:</strong> Through you a new world is trying to incarnate. You are here to pull others toward the future — not maintain the status quo.</td>
+        </tr>
+        <tr>
+          <td>Prosperity</td>
+          <td><strong>Key 3 — Innovation:</strong> Unlock wealth through innovation. Shadow to overcome: Chaos. Thrive best in partnership.</td>
+        </tr>
+        <tr>
+          <td>Radiance</td>
+          <td><strong>Key 1 — Freshness:</strong> Body is sensitive to environment. Surround yourself with originality and forward movement — never stagnate.</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- ENFJ row — full width below the 2-col grid -->
+  <div style="margin-top:2px;">
+    <div class="identity-card" style="border-top: 3px solid var(--gold);">
+      <div class="identity-card-label" style="color:var(--gold);">16Personalities · Myers-Briggs Type Indicator</div>
+      <div class="identity-card-title">ENFJ-A · The Protagonist</div>
+      <div class="identity-card-sub">83% Extraverted · 75% Intuitive · 60% Feeling · 67% Judging · 79% Assertive</div>
+      <div style="display:grid; grid-template-columns: repeat(4,1fr); gap: 2px; margin-bottom: 20px;">
+        <div style="background:var(--surface); padding:14px 16px;">
+          <div style="font-family:'Barlow Condensed',sans-serif; font-size:9px; letter-spacing:0.15em; text-transform:uppercase; color:var(--muted2); margin-bottom:6px;">Strengths</div>
+          <div style="font-size:12px; color:var(--cream2); line-height:1.6;">Charismatic leadership<br>Empathetic communication<br>Strategic vision<br>People-oriented solutions</div>
+        </div>
+        <div style="background:var(--surface); padding:14px 16px;">
+          <div style="font-family:'Barlow Condensed',sans-serif; font-size:9px; letter-spacing:0.15em; text-transform:uppercase; color:var(--muted2); margin-bottom:6px;">Watch For</div>
+          <div style="font-size:12px; color:var(--cream2); line-height:1.6;">Overextending yourself<br>Idealizing people<br>Sensitivity to criticism<br>Avoiding conflict</div>
+        </div>
+        <div style="background:var(--surface); padding:14px 16px;">
+          <div style="font-family:'Barlow Condensed',sans-serif; font-size:9px; letter-spacing:0.15em; text-transform:uppercase; color:var(--muted2); margin-bottom:6px;">The Assertive Edge</div>
+          <div style="font-size:12px; color:var(--cream2); line-height:1.6;">79% Assertive (not Turbulent) means you lead from confidence — not fear or anxiety. Built for public life and pressure.</div>
+        </div>
+        <div style="background:var(--surface); padding:14px 16px;">
+          <div style="font-family:'Barlow Condensed',sans-serif; font-size:9px; letter-spacing:0.15em; text-transform:uppercase; color:var(--muted2); margin-bottom:6px;">You Share This Type With</div>
+          <div style="font-size:12px; color:var(--cream2); line-height:1.6;">Barack Obama<br>Oprah Winfrey<br>Nelson Mandela<br>Martin Luther King Jr.</div>
+        </div>
+      </div>
+      <div style="font-size:13px; color:var(--muted2); line-height:1.65; border-top:1px solid var(--border); padding-top:16px;">
+        <strong style="color:var(--cream2);">The critical insight:</strong> The ENFJ-A's named shadow is overextension — taking on too much, putting others first at the expense of self. In practice this means: your referrals have value, your network has value, your time has value. Blaze Geniuses who don't price their magnification correctly get busy and broke simultaneously. Deliver value to Nathan Maurer early and often — bring deals, leads, and energy before you ask for mentorship.
+      </div>
+    </div>
+  </div>
+
+  <div class="convergence">
+    <p class="convergence-text">Four independent frameworks — Blaze Genius, Gene Key 13, Millionaire Master Plan, and ENFJ-A Protagonist — run at different times through completely different lenses, all arrived at the same place: <strong>you are wired to guide, connect, and lead through people — not through systems or solo execution.</strong> This is not a personality preference. It's your operating architecture, confirmed four times over.</p>
+  </div>
+
+  <div class="why-block">
+    <div class="why-label">Your WHY — Simon Sinek Framework</div>
+    <div class="why-statement">"I believe people are more powerful when connected to something real — land, community, each other, and themselves. Everything I build exists to deepen those connections."</div>
+    <div class="how-what-grid">
+      <div class="hw-col">
+        <h4>How You Do It</h4>
+        <div class="hw-item">By being the face — the brand IS you</div>
+        <div class="hw-item">Through deep listening and storytelling</div>
+        <div class="hw-item">Creating experiences that connect people</div>
+        <div class="hw-item">Real estate that gives community roots</div>
+        <div class="hw-item">Athletics, coaching, and shared discipline</div>
+        <div class="hw-item">Decentralized resources that give people sovereignty</div>
+      </div>
+      <div class="hw-col">
+        <h4>What You Build</h4>
+        <div class="hw-item">A short-term rental portfolio in Lake Ozark</div>
+        <div class="hw-item">A real estate investor identity and brand</div>
+        <div class="hw-item">A political platform rooted in community</div>
+        <div class="hw-item">A wrestling coaching program for youth</div>
+        <div class="hw-item">A Bitcoin / decentralized asset base</div>
+        <div class="hw-item">A life of time freedom, travel, and family</div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ── SECTION 02: VISION ── -->
+<div class="divider"></div>
+<section id="vision">
+<div class="section">
+  <div class="section-eyebrow"><span class="num">02 ·</span> Architecture</div>
+  <h2 class="section-heading">The Vision</h2>
+  <p class="section-subhead">Not a goal list — a life architecture. Six domains that reinforce each other and compound over time. Every domain feeds every other.</p>
+
+  <div class="domain-grid">
+    <div class="domain-card">
+      <div class="domain-card-top">
+        <div class="domain-icon">🏡</div>
+        <div class="domain-accent" style="background:var(--fire);"></div>
+      </div>
+      <div class="domain-card-title">Real Estate</div>
+      <div class="domain-card-sub">The Vehicle</div>
+      <ul class="domain-items">
+        <li>MO license in progress — exam Saturday, then transfer AZ → MO</li>
+        <li>Brokerage: Legacy Real Estate · Broker/mentor: Nathan Maurer</li>
+        <li>Year 1: lead magnet, refer to Landen Maurer + brokerage partners</li>
+        <li>Year 2+: STR investor, experience-driven properties, Lake Ozark</li>
+        <li>Land flip strategy: raw parcel → well → electric → relist buildable</li>
+      </ul>
+    </div>
+    <div class="domain-card">
+      <div class="domain-card-top">
+        <div class="domain-icon">📈</div>
+        <div class="domain-accent" style="background:var(--gold);"></div>
+      </div>
+      <div class="domain-card-title">Finance &amp; Wealth</div>
+      <div class="domain-card-sub">The Foundation</div>
+      <ul class="domain-items">
+        <li>Bitcoin as base layer of decentralized wealth — hold strategy</li>
+        <li>STR cash flow as primary income engine</li>
+        <li>Real estate equity compounds over time</li>
+        <li>Replace W2 income by 2028–2029</li>
+        <li>10-year net worth goal: $1M+ in real assets</li>
+      </ul>
+    </div>
+    <div class="domain-card">
+      <div class="domain-card-top">
+        <div class="domain-icon">🏛️</div>
+        <div class="domain-accent" style="background:var(--slate);"></div>
+      </div>
+      <div class="domain-card-title">Community &amp; Politics</div>
+      <div class="domain-card-sub">The Purpose</div>
+      <ul class="domain-items">
+        <li>Run for Mayor of Lake Ozark (2028–2030 window)</li>
+        <li>Platform: connected communities, local food sovereignty</li>
+        <li>Decentralized energy + resource independence</li>
+        <li>Missouri as model for the heart of America</li>
+        <li>Build relationships NOW — years before running</li>
+      </ul>
+    </div>
+    <div class="domain-card">
+      <div class="domain-card-top">
+        <div class="domain-icon">🔥</div>
+        <div class="domain-accent" style="background:var(--fire);"></div>
+      </div>
+      <div class="domain-card-title">Identity &amp; Brand</div>
+      <div class="domain-card-sub">The Amplifier</div>
+      <ul class="domain-items">
+        <li>The face of the movement — the brand IS the person</li>
+        <li>Blaze Genius magnification strategy: build through who-you-know</li>
+        <li>Storyteller, connector, experience-curator</li>
+        <li>Start With Why: the vision leads every conversation</li>
+        <li>Social presence and personal brand building NOW</li>
+      </ul>
+    </div>
+    <div class="domain-card">
+      <div class="domain-card-top">
+        <div class="domain-icon">💪</div>
+        <div class="domain-accent" style="background:var(--gold);"></div>
+      </div>
+      <div class="domain-card-title">Body &amp; Performance</div>
+      <div class="domain-card-sub">The Proof</div>
+      <ul class="domain-items">
+        <li>Physical transformation to 205 lbs — in progress</li>
+        <li>Wrestling coach — transfer former athlete identity to service</li>
+        <li>The body is living proof of the philosophy</li>
+        <li>Health protocol gated, underway, and disciplined</li>
+        <li>Injury recovery: bilateral ankle + spine — paced</li>
+      </ul>
+    </div>
+    <div class="domain-card">
+      <div class="domain-card-top">
+        <div class="domain-icon">🌱</div>
+        <div class="domain-accent" style="background:var(--slate);"></div>
+      </div>
+      <div class="domain-card-title">Family &amp; Legacy</div>
+      <div class="domain-card-sub">The Why Behind the Why</div>
+      <ul class="domain-items">
+        <li>Wife and family as part of the mission, not separate from it</li>
+        <li>Travel as lifestyle design — 2+ trips/year as a family</li>
+        <li>Raise children connected to land and community</li>
+        <li>Work = who you are, not what you do</li>
+        <li>Leave a model that others in other towns can replicate</li>
+      </ul>
+    </div>
+  </div>
+
+  <br>
+  <div class="target-state">
+    <div class="target-state-label">The 10-Year Target State · By 2036</div>
+    <p class="target-state-text">
+      By 2036, <em>Deryl VanNostrand is a known name in Missouri.</em> He owns a portfolio of experience-driven short-term rentals on the Lake of the Ozarks. He has served in local government and built a coalition around community sovereignty, local food, and decentralized energy. He <em>coaches wrestling</em>, travels with his family, and his work is indistinguishable from who he is. He has replaced W2 income with assets. He is physically transformed. His community looks to him not as a politician but as <em>a connector — the person who sees the hero in everyone's story and pulls people toward a shared future.</em>
+    </p>
+  </div>
+</div>
+</section>
+
+<!-- ── SECTION 03: ROADMAP ── -->
+<div class="divider"></div>
+<section id="roadmap">
+<div class="section">
+  <div class="section-eyebrow"><span class="num">03 ·</span> Timeline</div>
+  <h2 class="section-heading">The Roadmap</h2>
+  <p class="section-subhead">A Blaze Genius builds leverage through magnification. Your path compounds relationships and reputation while stacking assets. Each phase is a chapter.</p>
+
+  <div class="roadmap-container">
+    <div class="roadmap-line"></div>
+
+    <div class="phase-row phase-0">
+      <div class="phase-label-col">
+        <div class="phase-num">Phase 0</div>
+        <div class="phase-years">Now–<br>Sep 2026</div>
+      </div>
+      <div class="phase-content">
+        <div class="phase-theme">Foundation</div>
+        <div class="phase-subtitle">Build the platform before you build the portfolio</div>
+        <div class="phase-bullets">
+          <div class="phase-bullet">MO state RE exam — Saturday. 3 study days, then execute.</div>
+          <div class="phase-bullet">Transfer AZ license to Legacy Real Estate, broker Nathan Maurer</div>
+          <div class="phase-bullet">Complete physical transformation to 205 lbs</div>
+          <div class="phase-bullet">Medical evaluation + peptide protocol launched April 20</div>
+          <div class="phase-bullet">Begin Bitcoin accumulation — even $50/month matters now</div>
+          <div class="phase-bullet">Start documenting the vision publicly — social begins now</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase-row phase-1">
+      <div class="phase-label-col">
+        <div class="phase-num">Phase 1</div>
+        <div class="phase-years">Apr–<br>Dec 2026</div>
+      </div>
+      <div class="phase-content">
+        <div class="phase-theme">The Lead Magnet Summer</div>
+        <div class="phase-subtitle">The bar is the best relationship acquisition environment you'll ever have</div>
+        <div class="phase-bullets">
+          <div class="phase-bullet">Bartend at the lake — every conversation is a deposit into social capital</div>
+          <div class="phase-bullet">Be known, not selling — refer leads to Landen Maurer + brokerage partners</div>
+          <div class="phase-bullet">Deliver value to Nathan Maurer early — bring deals, leads, energy</div>
+          <div class="phase-bullet">Attend city council meetings — learn the landscape, be seen</div>
+          <div class="phase-bullet">Goal: F-150 EcoBoost + camper trailer (~$25K) by end of summer</div>
+          <div class="phase-bullet">The truck is not a reward — it's infrastructure for the RE career</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase-row phase-1">
+      <div class="phase-label-col">
+        <div class="phase-num">Winter</div>
+        <div class="phase-years">Dec 2026–<br>Mar 2027</div>
+      </div>
+      <div class="phase-content">
+        <div class="phase-theme">The Dead Season Is the Opportunity</div>
+        <div class="phase-subtitle">While other agents coast, you build the machine</div>
+        <div class="phase-bullets">
+          <div class="phase-bullet">Deep focus: RE marketing, content creation, personal brand</div>
+          <div class="phase-bullet">Integrate AI into every part of what you're building</div>
+          <div class="phase-bullet">Build the content machine so summer 2027 launches with an audience</div>
+          <div class="phase-bullet">Save aggressively — target a land investment entry by spring 2027</div>
+          <div class="phase-bullet">Study land flipping: raw parcel → well → electric → relist as buildable</div>
+          <div class="phase-bullet">Deepen relationship with Nathan — learn to underwrite land deals</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase-row phase-2" style="margin-top:2px;">
+      <div class="phase-label-col">
+        <div class="phase-num">Phase 2</div>
+        <div class="phase-years">2027–<br>Early 2028</div>
+      </div>
+      <div class="phase-content">
+        <div class="phase-theme">First Asset + Land Flip</div>
+        <div class="phase-subtitle">Two tracks running simultaneously — STR and land</div>
+        <div class="phase-bullets">
+          <div class="phase-bullet">Close on first STR property — Lake Ozark, experience-focused</div>
+          <div class="phase-bullet">Execute first land flip: raw parcel, dig well, run electric, relist</div>
+          <div class="phase-bullet">Use RE license to save commission on both sides of transactions</div>
+          <div class="phase-bullet">STR generating $1,500–$3,000/month net cash flow</div>
+          <div class="phase-bullet">Set up property management system — hire Steel Genius for ops</div>
+          <div class="phase-bullet">Begin wrestling coaching — school or club program</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase-row phase-3">
+      <div class="phase-label-col">
+        <div class="phase-num">Phase 3</div>
+        <div class="phase-years">2028–<br>2030</div>
+      </div>
+      <div class="phase-content">
+        <div class="phase-theme">Expansion + Politics</div>
+        <div class="phase-subtitle">The campaign announces what is already true</div>
+        <div class="phase-bullets">
+          <div class="phase-bullet">Portfolio at 3–4 properties, W2 income replaced or optional</div>
+          <div class="phase-bullet">File to run for Mayor of Lake Ozark or city council</div>
+          <div class="phase-bullet">Platform: community sovereignty, local resources, families</div>
+          <div class="phase-bullet">AZ license leveraged — dual-market presence</div>
+          <div class="phase-bullet">Decentralized energy project exploration (solar co-op etc.)</div>
+          <div class="phase-bullet">Family chapter — marriage, children, the mission expands</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase-row phase-4">
+      <div class="phase-label-col">
+        <div class="phase-num">Phase 4</div>
+        <div class="phase-years">2030–<br>2033</div>
+      </div>
+      <div class="phase-content">
+        <div class="phase-theme">Platform + Scale</div>
+        <div class="phase-subtitle">Office secured — now use it to build the model</div>
+        <div class="phase-bullets">
+          <div class="phase-bullet">5–7 STR properties — passive income base solidified</div>
+          <div class="phase-bullet">Political office secured — begin policy work</div>
+          <div class="phase-bullet">Missouri becomes the case study for connected communities</div>
+          <div class="phase-bullet">Youth wrestling clinic or academy scaled</div>
+          <div class="phase-bullet">State legislature run explored based on mayor performance</div>
+          <div class="phase-bullet">2+ international family trips/year as lifestyle norm</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase-row phase-5">
+      <div class="phase-label-col">
+        <div class="phase-num">Phase 5</div>
+        <div class="phase-years">2033–<br>2036+</div>
+      </div>
+      <div class="phase-content">
+        <div class="phase-theme">Legacy</div>
+        <div class="phase-subtitle">The brand becomes a movement — bigger than one person</div>
+        <div class="phase-bullets">
+          <div class="phase-bullet">Net worth $1M+ in real assets (RE + BTC + business)</div>
+          <div class="phase-bullet">Work IS identity — no separation between mission and income</div>
+          <div class="phase-bullet">Missouri community model replicable and documented</div>
+          <div class="phase-bullet">Next generation raised connected to land and purpose</div>
+          <div class="phase-bullet">The Deryl VanNostrand brand is a movement, not a person</div>
+          <div class="phase-bullet">Legacy question: what does this build that outlasts you?</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- ── SECTION 04: PRINCIPLES ── -->
+<div class="divider"></div>
+<section id="principles">
+<div class="section">
+  <div class="section-eyebrow"><span class="num">04 ·</span> Operating Rules</div>
+  <h2 class="section-heading">Strategic Principles</h2>
+  <p class="section-subhead">Decisions made in advance so you don't have to make them under pressure. These are the rules of the Deryl VanNostrand playbook.</p>
+
+  <div class="principles-list">
+    <div class="principle-row">
+      <div class="principle-num-col"><div class="principle-num">01</div></div>
+      <div class="principle-body">
+        <div class="principle-title">Build the Brand Before You Need It</div>
+        <p class="principle-text">You are a Blaze Genius — the brand IS you. Every post, every conversation, every event you show up to compounds into reputation capital. The mayor campaign in 2028–2030 succeeds or fails based on relationships built today. Start documenting your vision now — not when it's polished, but when it's real.</p>
+      </div>
+    </div>
+    <div class="principle-row">
+      <div class="principle-num-col"><div class="principle-num">02</div></div>
+      <div class="principle-body">
+        <div class="principle-title">Hire Your Opposite Genius Early</div>
+        <p class="principle-text">Your losing formula is calculation — systems, spreadsheets, details. Your first hire or partner should be a Steel Genius. Property management, bookkeeping, and compliance must not live in your head. Free yourself to magnify. You are the fire; find someone to tend the infrastructure.</p>
+      </div>
+    </div>
+    <div class="principle-row">
+      <div class="principle-num-col"><div class="principle-num">03</div></div>
+      <div class="principle-body">
+        <div class="principle-title">Real Estate Is the Vehicle, Community Is the Purpose</div>
+        <p class="principle-text">The STR portfolio is not the goal — it is how you finance the goal. Every property should be an experience that connects guests to Lake Ozark and your vision. Your properties should tell your WHY before you say a word. Short-term rentals in an experience-economy market are the perfect intersection of your skills and your philosophy.</p>
+      </div>
+    </div>
+    <div class="principle-row">
+      <div class="principle-num-col"><div class="principle-num">04</div></div>
+      <div class="principle-body">
+        <div class="principle-title">Bitcoin Is Insurance, Not Speculation</div>
+        <p class="principle-text">Accumulate Bitcoin as a base layer of decentralized wealth — slow, steady, non-traded. This is not a get-rich play. It is alignment with your philosophy of decentralization and sovereignty. Hold through volatility. Never sell for lifestyle expenses. This is the money that outlasts every system you don't control.</p>
+      </div>
+    </div>
+    <div class="principle-row">
+      <div class="principle-num-col"><div class="principle-num">05</div></div>
+      <div class="principle-body">
+        <div class="principle-title">Politics Flows From Reputation, Not Resume</div>
+        <p class="principle-text">In a small market like Lake Ozark, elections are won through relationships and trust accumulated over years. Show up to city council meetings. Know the business owners. Be the person people call when something needs to happen. The campaign announces what is already true — not a new identity created for an election.</p>
+      </div>
+    </div>
+    <div class="principle-row">
+      <div class="principle-num-col"><div class="principle-num">06</div></div>
+      <div class="principle-body">
+        <div class="principle-title">The Body Is Part of the Brand</div>
+        <p class="principle-text">As a Blaze Genius and Gene Key 13 guide, you embody what you teach. Your physical transformation is not vanity — it is integrity. The man who coaches youth wrestlers and talks about discipline must live it. The body is a public commitment and the most visible proof of your philosophy in action.</p>
+      </div>
+    </div>
+    <div class="principle-row">
+      <div class="principle-num-col"><div class="principle-num">07</div></div>
+      <div class="principle-body">
+        <div class="principle-title">Never Confuse Activity With Flow</div>
+        <p class="principle-text">Blaze Geniuses get distracted quickly — this is your named losing pattern in your own documents. When something stops feeling like flow, pause before pivoting. Ask: is this resistance (push through) or misalignment (course correct)? They feel identical at first. The answer is usually found in whether the action serves your WHY.</p>
+      </div>
+    </div>
+    <div class="principle-row">
+      <div class="principle-num-col"><div class="principle-num">08</div></div>
+      <div class="principle-body">
+        <div class="principle-title">Partner Before You Scale</div>
+        <p class="principle-text">Your Gene Keys Pearl sequence says you thrive best in partnership. Before adding a third property, a new business, or a political campaign — find the right partner for that chapter. The Blaze who tries to do everything alone burns out before the goal. Your chaos shadow activates when you're operating without the right complement.</p>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ── SECTION 05: ACTION PLAN ── -->
+<div class="divider"></div>
+<section id="actions">
+<div class="section">
+  <div class="section-eyebrow"><span class="num">05 ·</span> Execution</div>
+  <h2 class="section-heading">Near-Term Action Plan</h2>
+  <p class="section-subhead">Vision without execution is imagination. These are the concrete moves for the next 90 days and 12 months that activate Phase 0.</p>
+
+  <div class="section-eyebrow" style="margin-bottom:16px;"><span class="num"></span>90-Day Sprint — April to June 2026</div>
+  <div class="sprint-grid">
+    <div class="sprint-card">
+      <div class="sprint-header fire">Health &amp; Body</div>
+      <div class="sprint-items">
+        <label class="sprint-item"><input type="checkbox"> Complete MU Health evaluation + baseline labs</label>
+        <label class="sprint-item"><input type="checkbox"> Launch peptide protocol April 20 (post-AZ trip)</label>
+        <label class="sprint-item"><input type="checkbox"> Reach 215 lbs — halfway to goal weight of 205</label>
+        <label class="sprint-item"><input type="checkbox"> Maintain push/pull/legs split 5x/week</label>
+      </div>
+    </div>
+    <div class="sprint-card">
+      <div class="sprint-header gold">Real Estate</div>
+      <div class="sprint-items">
+        <label class="sprint-item"><input type="checkbox"> Take MO state RE exam Saturday — pass it</label>
+        <label class="sprint-item"><input type="checkbox"> Transfer AZ license to Legacy Real Estate</label>
+        <label class="sprint-item"><input type="checkbox"> Introduce yourself to Nathan Maurer — lead with value</label>
+        <label class="sprint-item"><input type="checkbox"> Meet Landen Maurer — understand how referrals flow</label>
+      </div>
+    </div>
+    <div class="sprint-card">
+      <div class="sprint-header slate">Finance</div>
+      <div class="sprint-items">
+        <label class="sprint-item"><input type="checkbox"> Open a dedicated investment account</label>
+        <label class="sprint-item"><input type="checkbox"> Begin Bitcoin accumulation — min $100/month auto</label>
+        <label class="sprint-item"><input type="checkbox"> Build simple STR pro forma (or hire someone to)</label>
+        <label class="sprint-item"><input type="checkbox"> Set savings rate target: minimum 20% of gross income</label>
+      </div>
+    </div>
+    <div class="sprint-card">
+      <div class="sprint-header dark">Brand &amp; Community</div>
+      <div class="sprint-items">
+        <label class="sprint-item"><input type="checkbox"> Attend one Lake Ozark city council meeting</label>
+        <label class="sprint-item"><input type="checkbox"> Post 3x/week — document the journey, share the WHY</label>
+        <label class="sprint-item"><input type="checkbox"> 5 intentional conversations with local leaders</label>
+        <label class="sprint-item"><input type="checkbox"> Register domain: derylvannostrand.com</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="milestones-section">
+    <div class="section-eyebrow" style="margin-bottom:16px;"><span class="num"></span>12-Month Milestones — By March 2027</div>
+    <div class="milestone-list">
+      <div class="milestone-item"><div class="milestone-marker">M1</div>MO RE exam passed Saturday — license transferred to Legacy Real Estate</div>
+      <div class="milestone-item"><div class="milestone-marker">M2</div>Body transformation complete — at or near 205 lbs, health protocol optimized</div>
+      <div class="milestone-item"><div class="milestone-marker">M3</div>F-150 EcoBoost + camper trailer acquired — mobility and professional image locked in</div>
+      <div class="milestone-item"><div class="milestone-marker">M4</div>Bitcoin stack established — consistent monthly accumulation habit locked in</div>
+      <div class="milestone-item"><div class="milestone-marker">M5</div>Recognized presence in Lake Ozark — relationships built through bartending season</div>
+      <div class="milestone-item"><div class="milestone-marker">M6</div>Multiple referrals delivered to Landen + Legacy partners — value deposited with Nathan</div>
+      <div class="milestone-item"><div class="milestone-marker">M7</div>Personal brand online — consistent voice, growing audience, clear WHY communicated</div>
+      <div class="milestone-item"><div class="milestone-marker">M8</div>AI + marketing systems built during winter dead season — ready to deploy spring 2027</div>
+      <div class="milestone-item"><div class="milestone-marker">M9</div>First land flip target identified — raw parcel, well/electric feasibility assessed</div>
+      <div class="milestone-item"><div class="milestone-marker">M10</div>Nathan Maurer relationship deepened — learning to underwrite land and development deals</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ── SECTION 06: COMMITMENTS ── -->
+<div class="divider"></div>
+<section id="commitments">
+<div class="section">
+  <div class="section-eyebrow"><span class="num">06 ·</span> Identity</div>
+  <h2 class="section-heading">Identity Commitments</h2>
+  <p class="section-subhead">Strategy follows identity. These are not goals — they are declarations of the person this plan assumes you already are. Read them like truths, not aspirations.</p>
+
+  <div class="commitments-list">
+    <div class="commitment-row">
+      <div class="commitment-bar"></div>
+      <div class="commitment-content">
+        <div class="commitment-title">I am a connector.</div>
+        <p class="commitment-body">I walk into every room asking who needs to meet whom. My network is my net worth and I tend it with the same discipline I apply to my body. Relationships are not networking — they are the mission itself.</p>
+      </div>
+    </div>
+    <div class="commitment-row">
+      <div class="commitment-bar"></div>
+      <div class="commitment-content">
+        <div class="commitment-title">I am a guide.</div>
+        <p class="commitment-body">My Gene Keys Life's Work is to help others see the hero in their own story. Whether coaching wrestling, hosting a dinner, or running for office — I create spaces where people discover their own power. I never take credit for their transformation.</p>
+      </div>
+    </div>
+    <div class="commitment-row">
+      <div class="commitment-bar"></div>
+      <div class="commitment-content">
+        <div class="commitment-title">I am a builder of real things.</div>
+        <p class="commitment-body">I invest in land, in community, in bodies, in relationships — not in abstractions. Everything I create can be touched, experienced, or inhabited. Real estate is real. Community is real. The body is real. The work must be real.</p>
+      </div>
+    </div>
+    <div class="commitment-row">
+      <div class="commitment-bar"></div>
+      <div class="commitment-content">
+        <div class="commitment-title">I am the face of this vision.</div>
+        <p class="commitment-body">I do not hide behind a business or a brand. My name, my story, my transformation is the brand. This requires me to be consistent, visible, and unafraid. The Blaze who shrinks from the spotlight extinguishes the very thing that makes them powerful.</p>
+      </div>
+    </div>
+    <div class="commitment-row">
+      <div class="commitment-bar"></div>
+      <div class="commitment-content">
+        <div class="commitment-title">I am financially sovereign.</div>
+        <p class="commitment-body">I build assets that generate income without my direct labor. Bitcoin. STR properties. Equity. I do not confuse income with wealth. I trade time for money only while building systems that will not require that trade. Sovereignty is the goal — not a number.</p>
+      </div>
+    </div>
+    <div class="commitment-row">
+      <div class="commitment-bar"></div>
+      <div class="commitment-content">
+        <div class="commitment-title">I am a man of my community.</div>
+        <p class="commitment-body">I was planted in Lake Ozark, Missouri for a reason. Before I build nationally or globally, I plant deeply here. My community is my laboratory, my constituency, and my anchor. Missouri is the heart of America. This is where the work begins.</p>
+      </div>
+    </div>
+    <div class="commitment-row">
+      <div class="commitment-bar"></div>
+      <div class="commitment-content">
+        <div class="commitment-title">I commit.</div>
+        <p class="commitment-body">I named myself "Emerging" — knowing what I want but not yet committed. This document is the commitment. The plan is made. The identity is chosen. The Chaos shadow of my Gene Keys is real — but so is the Innovation gift that lives on the other side of it. Now the work begins.</p>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ── CLOSING ── -->
+<div class="closing-banner">
+  <div class="closing-quote">"Missouri is the heart of America.<br>Lake Ozark is where the heart beats.<br>Deryl VanNostrand is the connector who makes it stronger."</div>
+  <div class="closing-sub">Future Vision Master Plan · Version 1.0 · March 2026</div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="f-brand">Deryl VanNostrand · Future Vision</div>
+  <div class="f-meta">Blaze Genius · ENFJ-A Protagonist · Gene Key 13 · Lake Ozark, Missouri · 2026–2036</div>
+</footer>
+
+<script>
+// ── ACTIVE NAV HIGHLIGHTING ──
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-link[data-section]');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(l => l.classList.remove('active'));
+      const active = document.querySelector(`.nav-link[data-section="${entry.target.id}"]`);
+      if (active) {
+        active.classList.add('active');
+        // scroll nav link into view on mobile
+        active.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
+    }
+  });
+}, { threshold: 0.2, rootMargin: '-56px 0px -40% 0px' });
+
+sections.forEach(s => observer.observe(s));
+
+// ── SMOOTH SCROLL OFFSET ──
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      const top = target.getBoundingClientRect().top + window.scrollY - 72;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  });
+});
+
+// ── FADE IN ON SCROLL ──
+const fadeEls = document.querySelectorAll(
+  '.domain-card, .phase-row, .principle-row, .commitment-row, .sprint-card, .milestone-item, .identity-card, .convergence, .why-block, .target-state'
+);
+
+const fadeObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+      fadeObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08 });
+
+fadeEls.forEach((el, i) => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  el.style.transition = `opacity 0.5s ease ${(i % 6) * 0.07}s, transform 0.5s ease ${(i % 6) * 0.07}s`;
+  fadeObserver.observe(el);
+});
+</script>
+</body>
+</html>
